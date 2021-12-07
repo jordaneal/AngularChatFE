@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable} from 'rxjs';
+import { BehaviorSubject, Observable} from 'rxjs';
 
 export interface Post {
   username: string,
@@ -13,6 +13,8 @@ export interface Post {
   providedIn: 'root'
 })
 export class ChannelService {
+  public allPosts$: BehaviorSubject<Post[]> = new BehaviorSubject<Post[]>([]);
+
   private apiUrl = "http://73.19.65.35:3500/api";
   constructor(private http: HttpClient) { }
     // create
@@ -33,5 +35,11 @@ export class ChannelService {
     // delete
     deleteMessage(channel: string): Observable<any>{
       return this.http.delete<any>(`${this.apiUrl}/${channel}`)
+    }
+
+    updatePosts(channel: string) {
+      this.getMessages(channel).subscribe(data => {
+        this.allPosts$.next(data);
+      });
     }
 }

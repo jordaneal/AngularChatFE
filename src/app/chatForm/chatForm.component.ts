@@ -1,4 +1,3 @@
-import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ChannelService, Post } from '../channel.service';
@@ -31,10 +30,10 @@ export class ChatFormComponent implements OnInit {
       created_on: new Date(),
       updated_on: undefined
     }
-    this.cs.newMessage(newPost, "JordanNeal").subscribe();
-    this.clearForm();
-    this.refreshText();
-    this.ngOnInit();
+    this.cs.newMessage(newPost, "JordanNeal").subscribe(data => {
+      this.clearForm();
+      this.refreshText();
+    });
   }
   clearForm() {
     this.form.setValue({
@@ -43,11 +42,12 @@ export class ChatFormComponent implements OnInit {
     });
   }
   refreshText() {
-    this.cs.getMessages("JordanNeal").subscribe(data => {
-      this.allPosts = data;
-    });
+    this.cs.updatePosts("JordanNeal");
   }
   ngOnInit() {
+    this.cs.allPosts$.subscribe(data => {
+      this.allPosts = data;
+    });
     this.refreshText();
   }
 }

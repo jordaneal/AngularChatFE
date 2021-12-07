@@ -1,8 +1,13 @@
 <div class="form">
   <div class="chatBox">
     <div *ngFor="let item of allPosts" class="post">
-      Username: {{ item.username }}<br />
-      Message: {{ item.message }}<br />
+      <b>Username:</b> {{ item.username }}<br />
+      <b>Message:</b> {{ item.message }}
+      <div class="date">
+        <b
+          ><em>{{ item.created_on | date: "medium" }}</em></b
+        >
+      </div>
     </div>
   </div>
   <div>
