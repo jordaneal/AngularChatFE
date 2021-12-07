@@ -1,0 +1,32 @@
+<div class="form">
+  <div class="chatBox">
+    <div *ngFor="let item of allPosts" class="post">
+      Username: {{ item.username }}<br />
+      Message: {{ item.message }}<br />
+    </div>
+  </div>
+  <div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Username</label><br />
+        <input
+          formControlName="username"
+          id="username"
+          type="text"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label><br />
+        <input
+          formControlName="message"
+          id="message"
+          type="text"
+          class="form-control"
+          size="50"
+        />
+      </div>
+      <input type="submit" [disabled]="!form.valid" />
+    </form>
+  </div>
+</div>

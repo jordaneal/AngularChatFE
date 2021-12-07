@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ChannelService, Post } from '../channel.service';
 
 @Component({
   selector: 'app-landing',
@@ -8,21 +7,8 @@ import { ChannelService, Post } from '../channel.service';
 })
 export class LandingComponent implements OnInit {
 
-  data: string[] = [];
-  posts: string[] = [];
-  messages: Post[] = [];
-
-  constructor(private cs: ChannelService) { }
-
+  constructor() { }
+  
   ngOnInit() {
-    this.cs.getMessages("JordanNeal").subscribe(data => {
-      console.log(data);
-      this.messages = data;
-    });
-
-    // this.cs.getChannelNames().subscribe(data => {
-    //   console.log(data);
-    //   this.posts = data;
-    // });
   }
 }
